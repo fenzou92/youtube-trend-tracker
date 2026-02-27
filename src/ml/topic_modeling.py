@@ -203,8 +203,13 @@ def load_model():
     if not os.path.exists(save_path):
         print("⚠️  Modèle introuvable, entraînement en cours...")
         return run_pipeline()
+    
     print(f"📂 Chargement du modèle → {save_path}")
-    return BERTopic.load(save_path)
+    
+    # ✅ Fix : spécifier le modèle d'embedding au chargement
+    from sentence_transformers import SentenceTransformer
+    embedding_model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
+    return BERTopic.load(save_path, embedding_model=embedding_model)
 
 # ─────────────────────────────────────────
 # 7. PIPELINE COMPLET
