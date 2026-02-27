@@ -8,6 +8,7 @@ import os
 # Ajoute le dossier parent au path pour importer config
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import config
+from ml.topic_generator import generate_search_topics
 
 
 def get_youtube_client():
@@ -194,7 +195,9 @@ def collect_all(topics=None):
     Pour chaque sujet → trouve les chaînes → récupère leurs vidéos → retourne tout.
     """
     if topics is None:
-        topics = config.SEARCH_TOPICS
+        topics = generate_search_topics(config.MAIN_THEME)
+        print(f"\n🎯 Thème : '{config.MAIN_THEME}'")
+        print(f"📋 Topics générés : {topics}")
 
     youtube = get_youtube_client()
     all_channels = []
@@ -227,7 +230,7 @@ def collect_all(topics=None):
 # ─────────────────────────────────────────
 
 if __name__ == "__main__":
-    channels, videos = collect_all(topics=["japan lifestyle vlog"])
+    channels, videos = collect_all()  # utilise MAIN_THEME automatiquement
 
     print("\n--- Aperçu des chaînes ---")
     for c in channels[:3]:
