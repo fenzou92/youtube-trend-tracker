@@ -1,0 +1,15 @@
+# Environnement
+venv/
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pkl
+
+# Data
+data/*.db
+data/*.csv
+
+# VSCode
+.vscode/
